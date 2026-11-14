@@ -1,0 +1,43 @@
+name: Ticket
+description: Unidad de trabajo para el agente (menos de medio día)
+body:
+  - type: input
+    id: objetivo
+    attributes:
+      label: Objetivo (una frase)
+      description: Qué cambia para el usuario o el sistema
+    validations:
+      required: true
+  - type: textarea
+    id: criterios
+    attributes:
+      label: Criterios de aceptación
+      description: Checklist verificable. Cada ítem se comprueba con un test o un comando.
+      placeholder: "- [ ] npm test pasa\n- [ ] el caso X devuelve Y"
+    validations:
+      required: true
+  - type: textarea
+    id: alcance
+    attributes:
+      label: Alcance
+      description: Archivos o carpetas que puede tocar
+    validations:
+      required: true
+  - type: textarea
+    id: fuera
+    attributes:
+      label: Fuera de alcance
+  - type: dropdown
+    id: tamano
+    attributes:
+      label: Tamaño estimado
+      options: ["Menos de 2 h", "2 a 4 h (máximo)"]
+    validations:
+      required: true
+  - type: dropdown
+    id: sensible
+    attributes:
+      label: ¿Toca acceso, storage, webhooks o datos de usuarios?
+      options: ["No", "Sí (revisión humana obligatoria)"]
+    validations:
+      required: true
