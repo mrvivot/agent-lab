@@ -23,9 +23,12 @@ jobs:
       id-token: write
       actions: read
     steps:
-            - uses: anthropics/claude-code-action@v1
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           claude_args: |
             --allowedTools "Bash(gh pr create:*),Bash(gh pr list:*),Bash(gh pr view:*)"
-            --append-system-prompt "Al terminar un ticket en una rama nueva, abrí el PR con gh pr create en vez de dejar un enlace. Antes verificá con gh pr list --head <rama> que no exista uno. Título: el del issue. Cuerpo: resumen de cambios y 'Closes #<n>'. Nunca mergees ni apruebes."
+            --append-system-prompt "Al terminar un ticket en una rama nueva, abrí el PR con gh pr create en vez de dejar un enlace. Antes verificá con gh pr list --head <rama> que no exista uno. Título: el del issue. Cuerpo: resumen de cambios y Closes #<n>. Nunca mergees ni apruebes."
