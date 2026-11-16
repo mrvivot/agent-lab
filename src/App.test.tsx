@@ -1,8 +1,9 @@
 // @vitest-environment jsdom
-import { afterEach, expect, test } from "vitest";
+import { afterEach, beforeEach, expect, test } from "vitest";
 import { cleanup, render, screen } from "@testing-library/react";
 import App from "./App";
 
+beforeEach(() => localStorage.clear());
 afterEach(cleanup);
 
 test("muestra el título Gym Tracker", () => {

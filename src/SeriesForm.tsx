@@ -1,4 +1,5 @@
 import { FormEvent, useState } from "react";
+import { cargarRegistros, guardarRegistros } from "./registrosPersistencia";
 
 export type Registro = {
   id: number;
@@ -20,9 +21,11 @@ function parseNumero(valor: string, entero: boolean): number | null {
 
 export default function SeriesForm() {
   const [campos, setCampos] = useState(camposVacios);
-  const [registros, setRegistros] = useState<Registro[]>([]);
+  const [registros, setRegistros] = useState<Registro[]>(cargarRegistros);
   const [error, setError] = useState<string | null>(null);
-  const [siguienteId, setSiguienteId] = useState(1);
+  const [siguienteId, setSiguienteId] = useState(
+    () => registros.reduce((max, r) => Math.max(max, r.id), 0) + 1,
+  );
 
   const actualizar = (campo: keyof typeof camposVacios) => (valor: string) =>
     setCampos((prev) => ({ ...prev, [campo]: valor }));
@@ -45,10 +48,12 @@ export default function SeriesForm() {
       return;
     }
 
-    setRegistros((prev) => [
-      ...prev,
+    const nuevos = [
+      ...registros,
       { id: siguienteId, ejercicio, series, repeticiones, peso },
-    ]);
+    ];
+    setRegistros(nuevos);
+    guardarRegistros(nuevos);
     setSiguienteId((id) => id + 1);
     setCampos(camposVacios);
     setError(null);

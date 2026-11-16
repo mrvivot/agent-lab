@@ -1,8 +1,9 @@
 // @vitest-environment jsdom
-import { afterEach, expect, test } from "vitest";
+import { afterEach, beforeEach, expect, test } from "vitest";
 import { cleanup, fireEvent, render, screen, within } from "@testing-library/react";
 import SeriesForm from "./SeriesForm";
 
+beforeEach(() => localStorage.clear());
 afterEach(cleanup);
 
 function completar(valores: {
