@@ -5,3 +5,5 @@ Repo de ensayo para el trabajo conjunto Grok Bot + Claude Code. No contiene nada
 Repo de ensayo, prueba de humo OK
 
 Prueba de Environment claude
+
+Segunda prueba sin clave de repo
