@@ -1,5 +1,6 @@
 import { FormEvent, useState } from "react";
 import { cargarRegistros, guardarRegistros } from "./registrosPersistencia";
+import { formatearVolumen, volumenTotal } from "./volumen";
 
 export type Registro = {
   id: number;
@@ -132,6 +133,9 @@ export default function SeriesForm() {
           </li>
         ))}
       </ul>
+      <p aria-label="Volumen total" className="mt-4 font-semibold">
+        Volumen total: {formatearVolumen(volumenTotal(registros))}
+      </p>
     </section>
   );
 }
