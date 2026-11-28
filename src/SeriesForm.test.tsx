@@ -91,3 +91,22 @@ test("el error desaparece tras un alta correcta", () => {
   expect(screen.queryByRole("alert")).toBeNull();
   expect(within(lista()).getAllByRole("listitem")).toHaveLength(1);
 });
+
+const volumen = () => screen.getByLabelText("Volumen total");
+
+test("muestra el volumen total debajo de la lista (3 × 10 × 50 kg = 1.500 kg)", () => {
+  render(<SeriesForm />);
+  expect(volumen().textContent).toContain("0 kg");
+  completar({ ejercicio: "Sentadilla", series: "3", repeticiones: "10", peso: "50" });
+  agregar();
+  expect(volumen().textContent).toContain("1.500 kg");
+});
+
+test("el volumen total se actualiza al agregar una serie", () => {
+  render(<SeriesForm />);
+  completar({ ejercicio: "Sentadilla", series: "3", repeticiones: "10", peso: "50" });
+  agregar();
+  completar({ ejercicio: "Press banca", series: "2", repeticiones: "5", peso: "60" });
+  agregar();
+  expect(volumen().textContent).toContain("2.100 kg");
+});
